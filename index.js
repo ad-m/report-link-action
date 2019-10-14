@@ -79,7 +79,7 @@ const main = async () => {
             ...context.repo,
             title: 'Broken link found!',
             body: getBody(errors),
-            issue_number: issues[0].issue_number
+            issue_number: issues[0].number
         });
         console.log({ updatedIssue });
     }
