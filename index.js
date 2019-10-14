@@ -61,6 +61,7 @@ const main = async () => {
     });
 
     issues = issues.filter(x => x.title === 'Broken link found!');
+    body = getBody(errors);
 
     if (errors.length === 0 && issues.length > 0) {
         const { data: updatedIssue } = await octokit.issues.update({
@@ -75,17 +76,18 @@ const main = async () => {
             ...context.repo,
             labels: ['report-link'],
             title: 'Broken link found!',
-            body: getBody(errors),
+            body,
         });
         console.log("New issue created:", newIssue.html_url);
-    } else if (errors.length > 0) {
+    } else if (errors.length > 0 && issues[0].body !== body) {
         const { data: updatedIssue } = await octokit.issues.update({
             ...context.repo,
-            title: 'Broken link found!',
-            body: getBody(errors),
-            issue_number: issues[0].number
+            issue_number: issues[0].number,
+            body,
         });
         console.log("Issue updated:", updatedIssue.html_url);
+    } else {
+        console.log("Nothing to do!");
     }
 }
 
