@@ -10,12 +10,12 @@ An example workflow to authenticate with GitHub Platform:
 
 ```yaml
 on:
-  branches:
-    - master
-
-schedule:
-# Run at 12:00 in working days
-  - cron: 0 12 * * 0-5
+  push:
+    branches:
+      - master
+  schedule:
+    # Run at 12:00 in working days
+    - cron: 0 12 * * 0-5
 
 jobs:
   build:

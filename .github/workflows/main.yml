@@ -1,5 +1,6 @@
 on: [push]
 
+name: Verify links
 jobs:
   job:
     runs-on: ubuntu-latest
