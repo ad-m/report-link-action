@@ -9,13 +9,17 @@ const markdownLinkCheckPromised = util.promisify(markdownLinkCheck);
 const quote = '```';
 
 const getBody = (errors) => {
-    const links = errors.map(({ result, item }) => `- [ ] ${quote}${result.link}${quote} in ${quote}${item.path}${quote}`);
-    return `Hello!
-        Found following broken links:
-        ${links.join("\n")}
-        Hope you will able to fix it soon!
-        Greetings,
-        Report-link-action-bot!`
+    const items = errors.map(({ result, item }) => `- [ ] ${quote}${result.link}${quote} in ${quote}${item.path}${quote}`);
+    const lines = [`Hello!`,
+        `Found following broken links:`,
+        '',
+        ...items,
+        '',
+        `Hope you will able to fix it soon!`
+        `Greetings,`
+        `Report-link-action-bot!`
+    ];
+    return lines.join("\n");
 }
 
 const main = async () => {
