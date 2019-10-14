@@ -10,13 +10,14 @@ const quote = '```';
 
 const getBody = (errors) => {
     const items = errors.map(({ result, item }) => `- [ ] ${quote}${result.link}${quote} in ${quote}${item.path}${quote}`);
-    const lines = [`Hello!`,
+    const lines = [
+        `Hello!`,
         `Found following broken links:`,
         '',
         ...items,
         '',
-        `Hope you will able to fix it soon!`
-        `Greetings,`
+        `Hope you will able to fix it soon!`,
+        `Greetings,`,
         `Report-link-action-bot!`
     ];
     return lines.join("\n");
