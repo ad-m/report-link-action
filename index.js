@@ -54,7 +54,7 @@ const main = async () => {
 
     const context = github.context;
     let { data: issues } = await octokit.issues.listForRepo({
-        ...context,
+        ...context.repo,
         state: 'open',
         labels: ['report-link']
     });
@@ -70,8 +70,7 @@ const main = async () => {
         console.log({ newIssue });
     } else {
         const { data: updatedIssue } = await octokit.issues.update({
-            owner,
-            repo,
+            ...context.repo,
             title: 'Broken link found!',
             body: getBody(errors),
             issue_number: issues[0].issue_number
