@@ -2,7 +2,7 @@ name: 'Report-link-action'
 description: 'Action that reports incorrect in repository documentation eg. expired links as new issues.'
 inputs:
   github_token:
-    description: 'GitHub access token'
+    description: 'Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}'
     required: true
 runs:
   using: 'docker'
