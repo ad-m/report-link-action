@@ -74,6 +74,7 @@ const main = async () => {
         });
         console.log({ newIssue });
     } else {
+        console.log(issues);
         const { data: updatedIssue } = await octokit.issues.update({
             ...context.repo,
             title: 'Broken link found!',
