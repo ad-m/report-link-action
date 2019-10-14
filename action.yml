@@ -5,5 +5,5 @@ inputs:
     description: 'GitHub access token'
     required: true
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: 'docker'
+  image: 'Dockerfile'

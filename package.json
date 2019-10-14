@@ -1,8 +1,9 @@
 {
   "name": "report-link-action",
   "version": "1.0.0",
-  "description": "## Inputs",
+  "description": "Action that reports incorrect in repository documentation eg. expired links as new issues.",
   "main": "index.js",
+  "repository":"https://github.com/ad-m/report-link-action.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
