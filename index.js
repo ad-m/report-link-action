@@ -53,37 +53,40 @@ const main = async () => {
         });
     }
 
-    if (errors.length === 0) {
-        return;
-    };
-
     const context = github.context;
     let { data: issues } = await octokit.issues.listForRepo({
         ...context.repo,
         state: 'open',
         labels: ['report-link']
     });
+
     issues = issues.filter(x => x.title === 'Broken link found!');
 
-    if (issues.length == 0) {
+    if (errors.length === 0 && issues.length > 0) {
+        const { data: updatedIssue } = await octokit.issues.update({
+            ...context.repo,
+            state: 'closed',
+            issue_number: issues[0].number
+        });
+        console.log("Issue closed:", updatedIssue.html_url);
+        return;
+    } else if (errors.length > 0 && issues.length == 0) {
         const { data: newIssue } = await octokit.issues.create({
             ...context.repo,
             labels: ['report-link'],
             title: 'Broken link found!',
             body: getBody(errors),
         });
-        console.log({ newIssue });
-    } else {
-        console.log(issues);
+        console.log("New issue created:", newIssue.html_url);
+    } else if (errors.length > 0) {
         const { data: updatedIssue } = await octokit.issues.update({
             ...context.repo,
             title: 'Broken link found!',
             body: getBody(errors),
             issue_number: issues[0].number
         });
-        console.log({ updatedIssue });
+        console.log("Issue updated:", updatedIssue.html_url);
     }
-
 }
 
 if (require.main === module) {
