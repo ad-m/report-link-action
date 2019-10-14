@@ -41,7 +41,7 @@ const main = async () => {
         results.forEach((result) => {
             if (result.status === 'dead') {
                 core.error(`'${result.link}' in '${item.path}' is ${result.status}:`, result.err);
-                errors.push({ result, path });
+                errors.push({ result, item });
             } else {
                 core.debug(`'${result.link}' in '${item.path}' is ${result.status}`)
             }
