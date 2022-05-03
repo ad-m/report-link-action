@@ -38,6 +38,9 @@ const main = async () => {
         const content = await fs.readFile(item.path, { encoding: 'utf-8' });
         console.log("Processing file", item.path);
         const results = await markdownLinkCheckPromised(content, {
+            httpHeaders: [
+                { "urls": ["https://docs.github.com/"], "headers": {"Accept-Encoding": "zstd, br, gzip, deflate"}}
+            ],
             ignorePatterns: [
                 { pattern: new RegExp("^(?!https{0,1}://).*$") }
             ],
